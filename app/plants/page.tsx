@@ -38,73 +38,59 @@ import { it } from "node:test";
 const list = [
   {
     title: "Orange",
-    img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$5.50",
+    img: "https://www.businessadvisorynetwork.com/wp-content/uploads/2018/04/orange.jpg",
   },
   {
-    title: "Tangerine",
-    img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$3.00",
+    title: "Banana",
+    img: "https://www.nicheagriculture.com/wp-content/uploads/2023/09/A-Guide-to-Robusta-Banana-Farming-in-India-2-scaled.jpg",
   },
   {
     title: "Raspberry",
-    img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$10.00",
+    img: "https://cdn.shopify.com/s/files/1/0059/8835/2052/files/Heritage_Raspberry_1_FGT_af269c43-b789-4585-a33c-6a9e5fb52548.jpg?v=1707158456",
   },
   {
     title: "Lemon",
-    img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$5.30",
+    img: "https://i.pinimg.com/736x/ce/f3/86/cef3866818f132dd320ff6d4c0e85f27.jpg",
+  },
+  {
+    title: "Tangerine",
+    img: "https://i0.wp.com/agnetwest.com/wp-content/uploads/2020/12/potted-tangerine-tree-pinterest.jpg?fit=600%2C548&ssl=1",
   },
   {
     title: "Avocado",
-    img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$15.70",
+    img: "https://i0.wp.com/stmaartenagriculture.com/wp-content/uploads/2020/06/avocado-plant-st-maarten-agriculture-900px.jpg?fit=900%2C1200&ssl=1",
   },
   {
     title: "Lemon 2",
     img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$8.00",
+  },
+  {
+    title: "Watermelon",
+    img: "https://www.botanicalinterests.com/community/blog/wp-content/uploads/2024/08/watermelon-sow-and-grow-guide.jpg",
   },
   {
     title: "Banana",
     img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$7.50",
   },
   {
     title: "Watermelon",
     img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$12.20",
   },
   {
     title: "Banana",
     img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$7.50",
   },
   {
     title: "Watermelon",
     img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$12.20",
   },
   {
     title: "Banana",
     img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$7.50",
   },
   {
     title: "Watermelon",
     img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$12.20",
-  },
-  {
-    title: "Banana",
-    img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$7.50",
-  },
-  {
-    title: "Watermelon",
-    img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$12.20",
   },
 ];
 
