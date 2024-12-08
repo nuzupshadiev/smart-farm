@@ -23,14 +23,15 @@ export function Providers({ children, themeProps }: ProvidersProps) {
     const token = localStorage.getItem("smart-farm-token");
 
     if (token) {
-      User.getUser({ token: token })
-        .then((user) => {
-          setUser(user);
-        })
-        .catch(() => {
-          console.error("Failed to get user");
-          // router.push("/login");
-        });
+      setUser(new User(null, token));
+      // User.getUser({ token: token })
+      //   .then((user) => {
+      //     setUser(user);
+      //   })
+      //   .catch(() => {
+      //     console.error("Failed to get user");
+      //     // router.push("/login");
+      //   });
     }
   }, []);
 

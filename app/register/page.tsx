@@ -19,7 +19,7 @@ function Register() {
       setErrorMessage("Please fill all the fields to continue");
       return;
     }
-    User.register({ email, password, name })
+    User.register({ email, password, username: name })
       .then((resp) => {
         if (resp.token) {
           setUser(resp);

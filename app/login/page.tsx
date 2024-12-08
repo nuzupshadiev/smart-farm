@@ -5,7 +5,7 @@ import { Button } from "@nextui-org/button";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-import { UserContext } from "@/utils/user-context";
+import { useUserContext } from "@/utils/user-context";
 import User from "@/src/API/user";
 
 function Login() {
@@ -13,7 +13,7 @@ function Login() {
   const [password, setPassword] = React.useState("");
   const [errorMessage, setErrorMessage] = React.useState("");
   const router = useRouter();
-  const { setUser } = React.useContext(UserContext);
+  const { setUser } = useUserContext();
   const handleLogin = React.useCallback(() => {
     if (email === "" || password === "") {
       setErrorMessage("Please fill all the fields to continue");
@@ -25,7 +25,7 @@ function Login() {
         if (resp.token) {
           setErrorMessage("");
           setUser(resp);
-          router.push("/projects");
+          router.push("/plants");
         }
       })
       .catch(() => {

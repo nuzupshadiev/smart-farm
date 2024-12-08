@@ -1,5 +1,7 @@
 import { UserContextT } from "@/utils/user-context";
+
 import { Endpoint } from "./endpoint";
+
 type UserRegisterT = {
   message: string;
   user: UserDataT;
@@ -16,11 +18,9 @@ export type UserT = {
   profileUrl: string;
 };
 export type UserDataT = {
-  createdAt: string;
   email: string;
   id: number;
-  name: string;
-  profilePicture: string;
+  username: string;
 };
 
 export default class User {
@@ -33,7 +33,7 @@ export default class User {
 
   static login(payload: { email: string; password: string }): Promise<User> {
     return Endpoint.request<UserLoginT>("post", {
-      url: `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}auth/login`,
+      url: `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}login`,
       data: payload,
     }).then((resp) => {
       localStorage.setItem("smart-farm-token", resp.data.token);
@@ -45,10 +45,10 @@ export default class User {
   static register(payload: {
     email: string;
     password: string;
-    name: string;
+    username: string;
   }): Promise<User> {
     return Endpoint.request<UserRegisterT>("post", {
-      url: `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}auth/register`,
+      url: `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}register`,
       data: payload,
     }).then((resp) => {
       localStorage.setItem("smart-farm-token", resp.data.token);

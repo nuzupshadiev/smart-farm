@@ -16,7 +16,7 @@ function Footer() {
   const pathName = usePathname();
 
   return (
-    !user && (
+    user && (
       <footer className="fixed bottom-0 left-0 right-0 shadow-md bg-background z-10 px-3 pb-4">
         <div className="flex justify-between items-center py-2">
           <Button
@@ -30,32 +30,32 @@ function Footer() {
             <FontAwesomeIcon icon={faHouse} />
           </Button>
           <Button
-            color="primary"
-            variant={pathName === "/plants" ? "flat" : "light"}
-            as={Link}
-            href="/plants"
-            className="text-2xl"
             aria-label="Dashboard"
+            as={Link}
+            className="text-2xl"
+            color="primary"
+            href="/plants"
+            variant={pathName === "/plants" ? "flat" : "light"}
           >
             <FontAwesomeIcon icon={faSeedling} />
           </Button>
           <Button
-            color="primary"
-            variant={pathName === "/weather" ? "flat" : "light"}
-            as={Link}
-            href="/weather"
-            className="text-2xl"
             aria-label="Weather"
+            as={Link}
+            className="text-2xl"
+            color="primary"
+            href="/weather"
+            variant={pathName === "/weather" ? "flat" : "light"}
           >
             <FontAwesomeIcon icon={faCloud} />
           </Button>
           <Button
-            color="primary"
-            variant={pathName === "/profile" ? "flat" : "light"}
-            as={Link}
-            href="/profile"
-            className="text-2xl"
             aria-label="Profile"
+            as={Link}
+            className="text-2xl"
+            color="primary"
+            href="/profile"
+            variant={pathName === "/profile" ? "flat" : "light"}
           >
             <FontAwesomeIcon icon={faUser} />
           </Button>

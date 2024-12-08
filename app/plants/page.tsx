@@ -1,17 +1,8 @@
 "use client";
 
-import Plant, { SimplePlantT } from "@/src/API/plants";
-import { useUserContext } from "@/utils/user-context";
 import React, { useEffect } from "react";
-import PlantItem from "./plant-item";
 import { Button } from "@nextui-org/button";
-import type { TimeValue } from "@react-types/datepicker";
-import {
-  parseAbsoluteToLocal,
-  Time,
-  ZonedDateTime,
-} from "@internationalized/date";
-import { useDateFormatter } from "@react-aria/i18n";
+import { parseAbsoluteToLocal } from "@internationalized/date";
 import {
   Card,
   CardBody,
@@ -33,91 +24,21 @@ import {
   TimeInputValue,
 } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
-import { it } from "node:test";
 
-const list = [
-  {
-    title: "Orange",
-    img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$5.50",
-  },
-  {
-    title: "Tangerine",
-    img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$3.00",
-  },
-  {
-    title: "Raspberry",
-    img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$10.00",
-  },
-  {
-    title: "Lemon",
-    img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$5.30",
-  },
-  {
-    title: "Avocado",
-    img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$15.70",
-  },
-  {
-    title: "Lemon 2",
-    img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$8.00",
-  },
-  {
-    title: "Banana",
-    img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$7.50",
-  },
-  {
-    title: "Watermelon",
-    img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$12.20",
-  },
-  {
-    title: "Banana",
-    img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$7.50",
-  },
-  {
-    title: "Watermelon",
-    img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$12.20",
-  },
-  {
-    title: "Banana",
-    img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$7.50",
-  },
-  {
-    title: "Watermelon",
-    img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$12.20",
-  },
-  {
-    title: "Banana",
-    img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$7.50",
-  },
-  {
-    title: "Watermelon",
-    img: "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4=",
-    price: "$12.20",
-  },
-];
+import Plant, { PlantT } from "@/src/API/plants";
+import { useUserContext } from "@/utils/user-context";
 
 function Plants() {
   const { user } = useUserContext();
-  const [plants, setPlants] = React.useState<SimplePlantT[]>([]);
+  const [plants, setPlants] = React.useState<PlantT[]>([]);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const [plantName, setPlantName] = React.useState("");
-  const [plantImage, setPlantImage] = React.useState("");
-  const [soilMoisture, setSoilMoisture] = React.useState("");
+  const [plantImage, setPlantImage] = React.useState<File | null>(null);
   const [time, setTime] = React.useState("");
-  const [frequency, setFrequency] = React.useState<Selection>(new Set([]));
+  const [frequency, setFrequency] = React.useState<Selection>(
+    new Set(["days"])
+  );
   const [interval, setInterval] = React.useState("");
   const [timeOfDay, setTimeOfDay] = React.useState<TimeInputValue>(
     parseAbsoluteToLocal("2024-04-08T18:45:22Z")
@@ -127,44 +48,61 @@ function Plants() {
   const router = useRouter();
 
   useEffect(() => {
-    Plant.getPlants(user).then((plants) => {
-      setPlants(plants);
+    Plant.getPlants(user).then((plantsResp) => {
+      setPlants(plantsResp.plants);
     });
   }, [user]);
 
   const onSavePlant = React.useCallback(() => {
     // Save the plant
-    console.log("Plant saved");
-    if (
-      plantName === "" ||
-      soilMoisture === "" ||
-      time === "" ||
-      frequency === "all" ||
-      frequency.size === 0 ||
-      interval === "" ||
-      timeOfDay === null
-    ) {
-      alert("Please fill all the fields");
-
+    if (selectedTab === "auto") {
+      if (
+        frequency === "all" ||
+        frequency.size === 0 ||
+        interval === "" ||
+        timeOfDay === null ||
+        plantName === "" ||
+        plantImage === null
+      ) {
+        console.log("Please fill all the fields to continue");
+        return;
+      }
+    } else if (plantName === "" || plantImage === null || time === "") {
+      console.log("Please fill all the fields to continue 2");
       return;
     }
 
     Plant.addPlant(user, {
       name: plantName,
-      image_url: plantImage,
-      watering_frequency: {
-        interval_type: "days",
-        interval_value: parseInt(interval),
-        time_of_day: timeOfDay && timeOfDay.toString(),
-      },
-      mode: selectedTab as "auto" | "manual",
+      image: plantImage,
+      auto_mode: selectedTab === "auto",
+      watering:
+        selectedTab === "auto"
+          ? {
+              interval_type: frequency.values().next().value as
+                | "days"
+                | "weeks"
+                | "months",
+              interval_value: parseInt(interval),
+              time_of_day: timeOfDay.toString(),
+            }
+          : {
+              duration: parseInt(time),
+            },
     }).then((plant) => {
-      setPlants([...plants, plant]);
+      const newPlant = {
+        plant_id: plant.data.plant_id,
+        name: plant.data.name,
+        image_url: plant.data.image_url,
+        soil_moisture: plant.data.soil_moisture,
+        status: plant.data.status,
+      };
+
+      setPlants([...plants, newPlant]);
       onOpenChange();
     });
   }, [
     plantName,
-    soilMoisture,
     time,
     frequency,
     interval,
@@ -175,8 +113,19 @@ function Plants() {
     selectedTab,
   ]);
 
+  const handleImageChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+
+      if (file) {
+        setPlantImage(file);
+      }
+    },
+    [],
+  );
+
   return (
-    <div className="overflow-hidden bg-default-100 pb-[100px]">
+    <div className="overflow-hidden h-full bg-default-100 pb-[100px]">
       <div className="p-5">
         <div className="flex justify-between items-center">
           <div>
@@ -191,39 +140,39 @@ function Plants() {
         </div>
       </div>
       <div className="gap-6 grid grid-cols-2 px-5">
-        {list.map((item, index) => (
+        {plants.map((item, index) => (
           <Card
-            shadow="sm"
             key={index}
             isPressable
-            onPress={() => router.push(`/plants/${item.title}`)}
+            shadow="sm"
+            onPress={() => router.push(`/plants/${item.plant_id}`)}
           >
             <CardBody className="overflow-visible p-0 bg-primary-100">
               <Image
-                shadow="sm"
-                radius="lg"
-                width="100%"
-                alt={item.title}
+                alt={item.name}
                 className="w-full object-cover h-[140px]"
-                src={item.img}
+                radius="lg"
+                shadow="sm"
+                src={item.image_url}
+                width="100%"
               />
             </CardBody>
             <CardFooter className="text-small justify-between bg-primary-100">
-              <b>{item.title}</b>
-              <p className="text-default-500">{`55%`}</p>
+              <b>{item.name}</b>
+              <p className="text-default-500">{item.soil_moisture}</p>
             </CardFooter>
           </Card>
         ))}
       </div>
 
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center">
+      <Modal isOpen={isOpen} placement="center" onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
                 Add a plant
               </ModalHeader>
-              <ModalBody className="flex flex-col justify-center items-center gap-2">
+              <ModalBody className="flex flex-col justify-center items-center gap-4">
                 <Input
                   label="Plant name"
                   labelPlacement="outside"
@@ -234,14 +183,10 @@ function Plants() {
                 <Input
                   label="Plant image"
                   labelPlacement="outside"
-                  placeholder="Enter the image URL"
-                />
-                <Input
-                  label="Soil moisture"
-                  labelPlacement="outside"
-                  placeholder="Enter the soil moisture"
-                  value={soilMoisture}
-                  onValueChange={(value) => setSoilMoisture(value)}
+                  placeholder="Upload the image of the plant"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
                 />
                 <Tabs
                   fullWidth
@@ -249,48 +194,45 @@ function Plants() {
                   onSelectionChange={(key) => setSelectedTab(key.toString())}
                 >
                   <Tab key="manual" title="Manual" className="w-full">
-                    <Card shadow="none" fullWidth>
-                      <CardBody>
-                        <Input
-                          fullWidth
-                          label="Time"
-                          labelPlacement="outside"
-                          placeholder="Enter the time in minutes"
-                          value={time}
-                          onValueChange={(value) => setTime(value)}
-                        />
-                      </CardBody>
-                    </Card>
+                    <Input
+                      fullWidth
+                      label="Time"
+                      labelPlacement="outside"
+                      placeholder="Enter the time in minutes"
+                      value={time}
+                      onValueChange={(value) => setTime(value)}
+                    />
                   </Tab>
-                  <Tab key="auto" title="Auto" className="w-full">
-                    <Card shadow="none" fullWidth>
-                      <CardBody className="flex flex-col gap-2">
-                        <Select
-                          label="Frequency"
-                          labelPlacement="outside"
-                          placeholder="Select the frequency"
-                          selectedKeys={frequency}
-                          onSelectionChange={setFrequency}
-                        >
-                          <SelectItem key={"days"}>Daily</SelectItem>
-                          <SelectItem key={"weeks"}>Weekly</SelectItem>
-                          <SelectItem key={"month"}>Monthly</SelectItem>
-                        </Select>
-                        <Input
-                          label="Interval"
-                          labelPlacement="outside"
-                          placeholder="Enter the interval"
-                          value={interval}
-                          onValueChange={(value) => setInterval(value)}
-                        />
-                        <TimeInput
-                          labelPlacement="outside"
-                          label="Time"
-                          value={timeOfDay}
-                          onChange={setTimeOfDay}
-                        />
-                      </CardBody>
-                    </Card>
+                  <Tab
+                    key="auto"
+                    className="w-full flex flex-col gap-4"
+                    title="Auto"
+                  >
+                    <Select
+                      disallowEmptySelection
+                      label="Frequency"
+                      labelPlacement="outside"
+                      placeholder="Select the frequency"
+                      selectedKeys={frequency}
+                      onSelectionChange={setFrequency}
+                    >
+                      <SelectItem key={"days"}>Daily</SelectItem>
+                      <SelectItem key={"weeks"}>Weekly</SelectItem>
+                      <SelectItem key={"month"}>Monthly</SelectItem>
+                    </Select>
+                    <Input
+                      label="Interval"
+                      labelPlacement="outside"
+                      placeholder="Enter the interval"
+                      value={interval}
+                      onValueChange={(value) => setInterval(value)}
+                    />
+                    <TimeInput
+                      label="Time"
+                      labelPlacement="outside"
+                      value={timeOfDay}
+                      onChange={setTimeOfDay}
+                    />
                   </Tab>
                 </Tabs>
               </ModalBody>
