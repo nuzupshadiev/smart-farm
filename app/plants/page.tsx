@@ -27,8 +27,16 @@ import { useRouter } from "next/navigation";
 
 import Plant, { PlantT } from "@/src/API/plants";
 import { useUserContext } from "@/utils/user-context";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { on } from "events";
 
 function Plants() {
+  const {
+    onOpen: onOpenDelete,
+    isOpen: isOpenDelete,
+    onOpenChange: onOpenChangeDelete,
+  } = useDisclosure();
   const { user } = useUserContext();
   const [plants, setPlants] = React.useState<PlantT[]>([]);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -121,7 +129,7 @@ function Plants() {
         setPlantImage(file);
       }
     },
-    [],
+    []
   );
 
   return (
@@ -153,9 +161,19 @@ function Plants() {
                 className="w-full object-cover h-[140px]"
                 radius="lg"
                 shadow="sm"
-                src={item.image_url}
+                src={
+                  "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4="
+                }
                 width="100%"
               />
+              <Button
+                isIconOnly
+                variant="flat"
+                className="absolute top-2 right-2 z-10"
+                onPress={onOpenDelete}
+              >
+                <FontAwesomeIcon icon={faXmark} />
+              </Button>
             </CardBody>
             <CardFooter className="text-small justify-between bg-primary-100">
               <b>{item.name}</b>
@@ -242,6 +260,37 @@ function Plants() {
                 </Button>
                 <Button color="primary" onPress={onSavePlant}>
                   Save
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+
+      {/* Delete */}
+      <Modal
+        isOpen={isOpenDelete}
+        placement="center"
+        onOpenChange={onOpenChangeDelete}
+        className="pt-4"
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              {/* <ModalHeader className="flex flex-col gap-1">
+                Add a plant
+              </ModalHeader> */}
+              <ModalBody className="flex flex-col justify-center items-center gap-4">
+                <h1>
+                  Are you sure you want to delete this plant?
+                </h1>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+                <Button color="primary" onPress={onClose}>
+                  Delete
                 </Button>
               </ModalFooter>
             </>

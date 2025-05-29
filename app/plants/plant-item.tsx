@@ -1,5 +1,6 @@
 import { SimplePlantT } from "@/src/API/plants";
-import { Card, CardBody } from "@nextui-org/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Card, CardBody } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 
 type PlantItemProps = {
@@ -24,6 +25,9 @@ function PlantItem({ plant }: PlantItemProps) {
           className="object-fit rounded-lg"
           src={plant.image_url}
         />
+        <Button isIconOnly>
+          <FontAwesomeIcon icon="camera" />
+        </Button>
         <div className="flex justify-center items-center">
           <h1 className="font-bold text-xl text-foreground">{plant.name}</h1>
         </div>

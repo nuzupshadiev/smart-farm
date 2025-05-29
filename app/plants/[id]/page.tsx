@@ -24,6 +24,7 @@ import { parseAbsoluteToLocal } from "@internationalized/date";
 
 import { useUserContext } from "@/utils/user-context";
 import Plant from "@/src/API/plants";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function PlantInfo({
   params,
@@ -120,7 +121,7 @@ export default function PlantInfo({
   if (!plant) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center p-6 pb-[100px]">
+    <div className="min-h-screen bg-default-100 flex flex-col items-center p-6 pb-[100px]">
       {/* Top Section with Image and Title */}
       <div className="flex flex-col items-center">
         <h1 className="text-2xl font-semibold mb-4">{plant?.data.name}</h1>
@@ -130,7 +131,9 @@ export default function PlantInfo({
             className="w-full object-cover h-[140px]"
             radius="lg"
             shadow="sm"
-            src={plant?.data.image_url}
+            src={
+              "https://media.istockphoto.com/id/1380361370/photo/decorative-banana-plant-in-concrete-vase-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=eYADMQ9dXTz1mggdfn_exN2gY61aH4fJz1lfMomv6o4="
+            }
             width="100%"
           />
         </div>
@@ -151,7 +154,7 @@ export default function PlantInfo({
           label="Mode"
           value={plant?.data.auto_mode ? "Auto" : "Manual"}
         />
-        <InfoCard label="Soil Moisture" value={plant?.data.soil_moisture} />
+        <InfoCard label="Soil Moisture" value={"79%"} />
         {plant.data.auto_mode && (
           <div className="flex flex-col gap-4">
             <InfoCard

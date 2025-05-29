@@ -54,7 +54,7 @@ export default function WeatherWidget() {
   }
 
   return (
-    <div className="flex flex-col items-center bg-white rounded-lg shadow-md p-4">
+    <div className="flex flex-col items-center bg-default rounded-lg shadow-md p-4">
       <h2 className="text-xl font-semibold mb-2">{weather.city}</h2>
       <img src={weather.icon} alt={weather.description} className="w-16 h-16" />
       <p className="text-lg font-medium">{weather.temperature}°C</p>
